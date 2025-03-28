@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Data Entry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Data to Excel</h1>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/submit" method="POST">
+            <label for="names">Enter Names (comma-separated):</label>
+            <input type="text" id="names" name="names" required placeholder="e.g. John Doe, Jane Smith">
+
+            <label for="row">Row Number:</label>
+            <input type="number" id="row" name="row" required min="1">
+
+            <label for="column">Starting Column (A-Z):</label>
+            <input type="text" id="column" name="column" required pattern="[A-Za-z]" maxlength="1" placeholder="e.g. A">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
